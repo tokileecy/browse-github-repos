@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
 import qs from 'qs'
 import type { ListReposOptions } from './types'
+import { Repositories } from './schemas/repositories'
 
 const GITHUB_URL = 'https://api.github.com'
 
@@ -23,7 +24,7 @@ export class Api {
   }
 
   listRepos = (params: ListReposOptions) => {
-    return this.apiInstance.get('/search/repositories', {
+    return this.apiInstance.get<Repositories>('/search/repositories', {
       headers: {
         'Content-Type': 'application/vnd.github+json',
       },
