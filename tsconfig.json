@@ -16,7 +16,10 @@
     "incremental": true,
     "paths": {
       "@/api": ["./api"],
-      "@/api/*": ["./api/*"]
+      "@/api/*": ["./api/*"],
+      "@/styles/*": ["./styles/*"],
+      "@/components/*": ["./components/*"],
+      "@/hooks/*": ["./hooks/*"]
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
