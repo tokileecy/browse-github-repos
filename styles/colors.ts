@@ -6,4 +6,6 @@ export default {
   topicTextHoverColor: 'rgb(255, 255, 255)',
   skeletonBgColor: 'rgba(0, 0, 0, 0.1)',
   skeletonBgColorLight: 'rgba(0, 0, 0, 0.04)',
+  repoBorderColor: 'rgb(208, 215, 222)',
+  mainFontColor: 'rgb(87, 96, 106)',
 }
