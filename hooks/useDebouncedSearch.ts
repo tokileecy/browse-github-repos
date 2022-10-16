@@ -2,24 +2,23 @@ import { useEffect, useState } from 'react'
 
 export const DELAY_TIME = 500
 
-export type SearchAction<T> = (inputText: string) => Promise<T[]>
+export type SearchAction<T> = (value: T) => Promise<void>
 
-export default function useDebounceSearch<T>(searchAction: SearchAction<T>) {
-  const [inputText, setInputText] = useState('')
-
-  const [result, setResult] = useState<T[]>([])
+export default function useDebounceSearch<T>(
+  initValue: T,
+  searchAction: SearchAction<T>
+) {
+  const [value, setValue] = useState<T>(initValue)
 
   useEffect(() => {
     const timeOutId = setTimeout(async () => {
-      const datas = await searchAction(inputText)
-
-      setResult(datas)
+      await searchAction(value)
     }, DELAY_TIME)
 
     return () => {
       clearTimeout(timeOutId)
     }
-  }, [inputText])
+  }, [value])
 
-  return [inputText, setInputText, result] as const
+  return [value, setValue] as const
 }

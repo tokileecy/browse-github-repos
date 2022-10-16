@@ -15,7 +15,20 @@ export const main = css({
 
 export const title = css({
   margin: 0,
+  marginBottom: '2rem',
+  fontSize: '3.5rem',
   lineHeight: 1.15,
-  fontSize: '4rem',
   textAlign: 'center',
+})
+
+export const content = css({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '2rem',
+  width: '100%',
+})
+
+export const scrollObserver = css({
+  height: 0,
+  listStyle: 'none',
 })

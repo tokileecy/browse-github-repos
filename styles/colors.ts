@@ -8,6 +8,8 @@ export default {
   skeletonBgColorLight: 'rgba(0, 0, 0, 0.04)',
   repoBorderColor: 'rgb(208, 215, 222)',
   mainFontColor: 'rgb(87, 96, 106)',
+  detailMessageColor: 'rgb(70, 70, 70)',
+  detailMessageBgColor: 'rgb(247, 217, 217)',
   btnColor: 'rgb(36, 41, 47)',
   btnBgColor: 'rgb(246, 248, 250)',
   btnBorderborder: 'rgba(27, 31, 36, 0.15)',
