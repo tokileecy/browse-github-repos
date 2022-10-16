@@ -40,7 +40,11 @@ export default function HomePage() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Browse Github Repos</h1>
-        <SearchInput value={search} onChange={handleSearchInputChange} />
+        <SearchInput
+          label={'Search Repos'}
+          value={search}
+          onChange={handleSearchInputChange}
+        />
         <RepoList>
           {result.map((repo) => {
             const license = getLicense(repo.license)
