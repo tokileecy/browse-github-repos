@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Head from 'next/head'
 import SearchInput, { SearchInputProps } from '@/components/SearchInput'
 import RepoList from '@/components/RepoList'
@@ -6,10 +7,12 @@ import getLicense from '@/utils/getLicense'
 import api from '@/api'
 import useRepoList from '@/hooks/useRepoList'
 import useIntersectionObserver from '@/hooks/useIntersectionObserver'
-import * as styles from './HomePage.styles'
 import SkeletonRepoListItem from '@/components/SkeletonRepoListItem'
 import ErrorRepoListItem from '@/components/ErrorRepoListItem'
 import EmptyRepoListItem from '@/components/EmptyRepoListItem'
+import setUrlQParam from '@/utils/setUrlQParam'
+import getUrlQParam from '@/utils/getUrlQParam'
+import * as styles from './HomePage.styles'
 
 export default function HomePage() {
   const {
@@ -21,7 +24,10 @@ export default function HomePage() {
     isFetching,
     error,
     reFetchPage,
-  } = useRepoList(api.listRepos)
+  } = useRepoList(async (...arg) => {
+    setUrlQParam(search)
+    return api.listRepos(...arg)
+  })
 
   const isLoading = isFetching || isKeying
 
@@ -47,6 +53,10 @@ export default function HomePage() {
   const handleSearchInputChange: SearchInputProps['onChange'] = (e) => {
     setSearch(e.target.value)
   }
+
+  useEffect(() => {
+    setSearch(getUrlQParam())
+  }, [])
 
   return (
     <div className={styles.root}>
