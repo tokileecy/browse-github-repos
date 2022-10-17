@@ -44,6 +44,8 @@ Component
 ```
 ## Env Description
 
+NODE Version: 12.x, 14.x, 16.x
+
 ### development
 
 1. storybook (document of components)
