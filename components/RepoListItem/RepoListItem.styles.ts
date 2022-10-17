@@ -40,7 +40,7 @@ export const meta = css({
   flexWrap: 'wrap',
   display: 'inline-flex',
   alignItems: 'flex-end',
-  color: colors.mainFontColor,
+  color: colors.textBodyLightColor,
   fontSize: '0.75rem',
   gap: '8px',
 })

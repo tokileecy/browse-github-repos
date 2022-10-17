@@ -11,13 +11,13 @@ export const root = css({
 
 export const title = css({
   fontSize: '0.875rem',
-  color: colors.mainFontColor,
+  color: colors.textBodyLightColor,
 })
 
 export const showMore = css({
   marginLeft: '8px',
   fontSize: '0.875rem',
-  color: colors.mainFontColor,
+  color: colors.textBodyLightColor,
   fontWeight: 'bold',
 })
 
