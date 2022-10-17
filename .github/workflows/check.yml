@@ -1,22 +1,23 @@
-name: eslint
-
-on: [push]
-
+name: check
+on:
+  push:
+    branches:
+      - "*"
 jobs:
-  eslint:
+  eslint-and-build: 
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-          registry-url: 'https://npm.pkg.github.com'
-      - name: eslint check
+      - name: Check ESLint and Build
         run: |
           yarn install --silent
           yarn eslint:check
-
+          yarn build
