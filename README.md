@@ -56,9 +56,17 @@ NODE Version: 12.x, 14.x, 16.x
 
 running at Port `$DOCS_PORT` default is at Port 6006.
 
+```sh
+DOCS_PORT=<DOCS_PORT> yarn storybook
+```
+
 2. dev (Task demo site)
 
 running at Port `$WEB_PORT` default is at Port 3000.
+
+```sh
+WEB_PORT=<WEB_PORT> yarn dev
+```
 
 ### production
 
@@ -74,6 +82,6 @@ yarn build && yarn start
 
 export static page.
 
-```
+```sh
 yarn export
 ```
