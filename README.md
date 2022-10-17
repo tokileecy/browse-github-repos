@@ -4,6 +4,10 @@
 
 1. Infinite scroll
 
+## Demo
+
+View [Demo](https://tokileecy.github.io/browse-github-repos/)
+
 ## Architecture
 
 - TypeScript
