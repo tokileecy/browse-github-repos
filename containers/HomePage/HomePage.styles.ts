@@ -1,4 +1,3 @@
-import colors from '@/styles/colors'
 import { css } from '@emotion/css'
 
 export const root = css({
@@ -20,6 +19,12 @@ export const title = css({
   fontSize: '3.5rem',
   lineHeight: 1.15,
   textAlign: 'center',
+})
+
+export const reportListContainer = css({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.25rem',
 })
 
 export const content = css({

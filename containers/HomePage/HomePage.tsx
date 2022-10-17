@@ -75,42 +75,44 @@ export default function HomePage() {
             value={search}
             onChange={handleSearchInputChange}
           />
-          {!isKeying && (
-            <RepoList>
-              {repoStatus.ids.map((id) => {
-                const repo = repoStatus.idToRepo[id]
-                const license = getLicense(repo.license)
+          <div className={styles.reportListContainer}>
+            {!isKeying && (
+              <RepoList>
+                {repoStatus.ids.map((id) => {
+                  const repo = repoStatus.idToRepo[id]
+                  const license = getLicense(repo.license)
 
-                return (
-                  <RepoListItem
-                    key={repo.id}
-                    fullName={repo.full_name}
-                    htmlUrl={repo.html_url}
-                    description={repo.description}
-                    stargazersCount={repo.stargazers_count}
-                    language={repo.language}
-                    license={license}
-                    pushedAt={repo.pushed_at}
-                    issue={repo.open_issues}
-                    topics={repo.topics}
-                  />
-                )
-              })}
-            </RepoList>
-          )}
-          <ul className={styles.endUl}>
-            <li className={styles.scrollObserver} ref={endRefCallback}></li>
-            <SkeletonRepoListItem hidden={!isLoading} />
-            {error !== null && (
-              <ErrorRepoListItem
-                error={error}
-                onRetryClick={() => {
-                  reFetchPage()
-                }}
-              />
+                  return (
+                    <RepoListItem
+                      key={repo.id}
+                      fullName={repo.full_name}
+                      htmlUrl={repo.html_url}
+                      description={repo.description}
+                      stargazersCount={repo.stargazers_count}
+                      language={repo.language}
+                      license={license}
+                      pushedAt={repo.pushed_at}
+                      issue={repo.open_issues}
+                      topics={repo.topics}
+                    />
+                  )
+                })}
+              </RepoList>
             )}
-            {isNoRepoMetch && <EmptyRepoListItem search={search} />}
-          </ul>
+            <ul className={styles.endUl}>
+              <li className={styles.scrollObserver} ref={endRefCallback}></li>
+              <SkeletonRepoListItem hidden={!isLoading} />
+              {error !== null && (
+                <ErrorRepoListItem
+                  error={error}
+                  onRetryClick={() => {
+                    reFetchPage()
+                  }}
+                />
+              )}
+              {isNoRepoMetch && <EmptyRepoListItem search={search} />}
+            </ul>
+          </div>
         </div>
       </main>
     </div>
