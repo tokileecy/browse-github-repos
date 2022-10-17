@@ -34,3 +34,8 @@ export const scrollObserver = css({
   height: 0,
   listStyle: 'none',
 })
+
+export const endUl = css({
+  padding: 0,
+  margin: 0,
+})

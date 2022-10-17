@@ -49,7 +49,8 @@ export default function HomePage() {
         <h1 className={styles.title}>Browse Github Repos</h1>
         <div className={styles.content}>
           <SearchInput
-            label={'Search Repos'}
+            label="Search Repos"
+            placeholder="Input your keywords"
             value={search}
             onChange={handleSearchInputChange}
           />
@@ -73,17 +74,19 @@ export default function HomePage() {
                 />
               )
             })}
+          </RepoList>
+          <ul className={styles.endUl}>
             <li className={styles.scrollObserver} ref={endRefCallback}></li>
             <SkeletonRepoListItem hidden={!isFetching} />
-          </RepoList>
-          {error !== null && (
-            <ErrorRepoListItem
-              error={error}
-              onRetryClick={() => {
-                reFetchPage()
-              }}
-            />
-          )}
+            {error !== null && (
+              <ErrorRepoListItem
+                error={error}
+                onRetryClick={() => {
+                  reFetchPage()
+                }}
+              />
+            )}
+          </ul>
         </div>
       </main>
     </div>
