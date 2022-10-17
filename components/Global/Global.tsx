@@ -1,3 +1,4 @@
+import colors from '@/styles/colors'
 import { Global as BaseGlobal, css } from '@emotion/react'
 
 export default function Global() {
@@ -11,6 +12,11 @@ export default function Global() {
           font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
             Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
             sans-serif;
+        }
+        html,
+        body,
+        input {
+          color: ${colors.textBodyColor};
         }
 
         body.hidden {
