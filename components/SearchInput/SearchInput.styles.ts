@@ -18,5 +18,6 @@ export const input = css({
   paddingLeft: '8px',
   paddingRight: '8px',
   outline: 'none',
+  borderRadius: 0,
   borderBottom: `solid 1px ${colors.searchInputBorderColor}`,
 })
