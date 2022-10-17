@@ -23,7 +23,7 @@ export const generateInitRepoStatus = () =>
     ids: [],
     idToRepo: {},
     totalCount: 0,
-    page: 1,
+    page: -1,
   } as RepoStatus)
 
 export default function useRepoList(
@@ -35,6 +35,7 @@ export default function useRepoList(
   )
 
   const [error, setError] = useState<string | null>(null)
+  const [isKeying, setIsKeying] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
 
   const handleError = (error: unknown) => {
@@ -73,14 +74,16 @@ export default function useRepoList(
           } as RepoStatus
         )
 
-        setRepoStatus(nextRepoStatus)
+        setRepoStatus({ ...nextRepoStatus, page: 1 })
         startupCallback?.(nextRepoStatus)
       } else {
         setRepoStatus(generateInitRepoStatus())
       }
     } catch (error) {
       handleError(error)
+      setRepoStatus(generateInitRepoStatus())
     } finally {
+      setIsKeying(false)
       setIsFetching(false)
     }
   }
@@ -126,13 +129,18 @@ export default function useRepoList(
   }
 
   useEffect(() => {
-    if (search !== '') {
+    setError(null)
+    setIsKeying(true)
+  }, [search])
+
+  useEffect(() => {
+    if (search !== '' && repoStatus.page > 1) {
       fetchRepos()
     }
   }, [repoStatus.page])
 
   const fetchNextPage = useCallback(() => {
-    if (!isFetching && error === null) {
+    if (error === null) {
       setRepoStatus((prev) => {
         const next = { ...prev }
 
@@ -144,7 +152,12 @@ export default function useRepoList(
 
   const reFetchPage = () => {
     setError(null)
-    fetchRepos()
+
+    if (repoStatus.page === -1) {
+      handleSearchChange(search)
+    } else {
+      fetchRepos()
+    }
   }
 
   return {
@@ -155,5 +168,6 @@ export default function useRepoList(
     error,
     fetchNextPage,
     reFetchPage,
+    isKeying,
   }
 }

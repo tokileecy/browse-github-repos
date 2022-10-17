@@ -9,6 +9,7 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver'
 import * as styles from './HomePage.styles'
 import SkeletonRepoListItem from '@/components/SkeletonRepoListItem'
 import ErrorRepoListItem from '@/components/ErrorRepoListItem'
+import EmptyRepoListItem from '@/components/EmptyRepoListItem'
 
 export default function HomePage() {
   const {
@@ -16,15 +17,25 @@ export default function HomePage() {
     setSearch,
     repoStatus,
     fetchNextPage,
+    isKeying,
     isFetching,
     error,
     reFetchPage,
   } = useRepoList(api.listRepos)
 
+  const isLoading = isFetching || isKeying
+
+  const isNoRepoMetch =
+    repoStatus.ids.length === 0 && search !== '' && !isLoading && !error
+
   const [, endRefCallback] = useIntersectionObserver<HTMLLIElement>((entry) => {
     if (entry[0].isIntersecting) {
       try {
-        if (repoStatus.ids.length < repoStatus.totalCount) {
+        if (
+          repoStatus.ids.length < repoStatus.totalCount &&
+          repoStatus.page !== -1 &&
+          !isLoading
+        ) {
           fetchNextPage()
         }
       } catch (error) {
@@ -54,30 +65,32 @@ export default function HomePage() {
             value={search}
             onChange={handleSearchInputChange}
           />
-          <RepoList>
-            {repoStatus.ids.map((id) => {
-              const repo = repoStatus.idToRepo[id]
-              const license = getLicense(repo.license)
+          {!isKeying && (
+            <RepoList>
+              {repoStatus.ids.map((id) => {
+                const repo = repoStatus.idToRepo[id]
+                const license = getLicense(repo.license)
 
-              return (
-                <RepoListItem
-                  key={repo.id}
-                  fullName={repo.full_name}
-                  htmlUrl={repo.html_url}
-                  description={repo.description}
-                  stargazersCount={repo.stargazers_count}
-                  language={repo.language}
-                  license={license}
-                  pushedAt={repo.pushed_at}
-                  issue={repo.open_issues}
-                  topics={repo.topics}
-                />
-              )
-            })}
-          </RepoList>
+                return (
+                  <RepoListItem
+                    key={repo.id}
+                    fullName={repo.full_name}
+                    htmlUrl={repo.html_url}
+                    description={repo.description}
+                    stargazersCount={repo.stargazers_count}
+                    language={repo.language}
+                    license={license}
+                    pushedAt={repo.pushed_at}
+                    issue={repo.open_issues}
+                    topics={repo.topics}
+                  />
+                )
+              })}
+            </RepoList>
+          )}
           <ul className={styles.endUl}>
             <li className={styles.scrollObserver} ref={endRefCallback}></li>
-            <SkeletonRepoListItem hidden={!isFetching} />
+            <SkeletonRepoListItem hidden={!isLoading} />
             {error !== null && (
               <ErrorRepoListItem
                 error={error}
@@ -86,6 +99,7 @@ export default function HomePage() {
                 }}
               />
             )}
+            {isNoRepoMetch && <EmptyRepoListItem search={search} />}
           </ul>
         </div>
       </main>
