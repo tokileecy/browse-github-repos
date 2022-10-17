@@ -1,0 +1,11 @@
+/public/
+/node_modules/*
+/out/
+/stories/
+/.next/
+/.vscode/
+
+package.json
+next.config.js
+next-env.d.ts
+.eslintrc.js
