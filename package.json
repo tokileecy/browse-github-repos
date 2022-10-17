@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p ${WEB_PORT:-3000}",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p ${WEB_PORT:-3000}",
     "export": "next build && next export",
     "eslint:check": "eslint .",
     "eslint:fix": "eslint . --fix",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p ${DOCS_PORT:-6006}",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
