@@ -37,8 +37,8 @@ PushedAtIsNotDateString.args = {
   topics: ['react', 'storybook', 'Typescript'],
 }
 
-export const LackDataDateString = Template.bind({})
+export const LackData = Template.bind({})
 
-LackDataDateString.args = {
+LackData.args = {
   fullName: '@my-org/my-repo',
 }
