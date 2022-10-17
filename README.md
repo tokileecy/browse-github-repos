@@ -6,8 +6,8 @@
 
 ## Demo
 
-View [Demo](https://tokileecy.github.io/browse-github-repos/demo)
-View [Stories](https://tokileecy.github.io/browse-github-repos/stories)
+- View [Demo](https://tokileecy.github.io/browse-github-repos/demo)
+- View [Stories](https://tokileecy.github.io/browse-github-repos/stories)
 
 ## Architecture
 
@@ -86,3 +86,9 @@ export static page.
 ```sh
 yarn export
 ```
+
+## Deploy
+
+Deploy Static Production Page to Github Pages.
+
+Force push git tag `prod` to change production.
