@@ -6,7 +6,8 @@
 
 ## Demo
 
-View [Demo](https://tokileecy.github.io/browse-github-repos/)
+View [Demo](https://tokileecy.github.io/browse-github-repos/demo)
+View [Stories](https://tokileecy.github.io/browse-github-repos/stories)
 
 ## Architecture
 
