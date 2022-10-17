@@ -21,7 +21,7 @@ jobs:
           yarn install --silent
           yarn export
         env:
-          BASE_PATH: ${{ github.event.repository.name }}
+          BASE_PATH: /${{ github.event.repository.name }}
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
