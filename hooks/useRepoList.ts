@@ -38,15 +38,18 @@ export default function useRepoList(
   const [isKeying, setIsKeying] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
 
-  const handleError = (error: unknown) => {
-    if (axios.isAxiosError(error) && error.response) {
-      setError(error.response.data.message)
-    } else if (error instanceof Error) {
-      setError(error.message)
-    } else {
-      setError('uncertain error')
-    }
-  }
+  const handleError = useCallback(
+    (error: unknown) => {
+      if (axios.isAxiosError(error) && error.response) {
+        setError(error.response.data.message)
+      } else if (error instanceof Error) {
+        setError(error.message)
+      } else {
+        setError('uncertain error')
+      }
+    },
+    [error]
+  )
 
   const handleSearchChange = async (dbounceText: string) => {
     try {
@@ -148,9 +151,9 @@ export default function useRepoList(
         return next
       })
     }
-  }, [isFetching])
+  }, [])
 
-  const reFetchPage = () => {
+  const reFetchPage = useCallback(() => {
     setError(null)
 
     if (repoStatus.page === -1) {
@@ -158,7 +161,7 @@ export default function useRepoList(
     } else {
       fetchRepos()
     }
-  }
+  }, [repoStatus.page, search])
 
   return {
     search,
