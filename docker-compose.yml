@@ -1,0 +1,22 @@
+version: '3'
+
+volumes:
+  postgres-store:
+services:
+  next-app:
+    image: node:$NODE_VERSION
+    user: '1000:1000'
+    ports:
+      - $WEB_PORT:$WEB_PORT
+      - $DOCS_PORT:$DOCS_PORT
+    environment:
+      - NODE_OPTIONS=--max_old_space_size=2048
+      - BASE_PATH=$BASE_PATH
+      - WEB_PORT=$WEB_PORT
+      - DOCS_PORT=$DOCS_PORT
+    volumes:
+      - .:/srv/app
+      - /dev/null:/srv/app/docker-compose.yml
+    working_dir: /srv/app
+    command: >
+      /bin/sh -c "yarn dev & yarn storybook"

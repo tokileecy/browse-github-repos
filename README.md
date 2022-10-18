@@ -51,6 +51,12 @@ Component
 
 NODE Version: 12.x, 14.x, 16.x
 
+### Install
+
+```sh
+yarn install
+```
+
 ### development
 
 1. storybook (document of components)
@@ -67,6 +73,18 @@ running at Port `$WEB_PORT` default is at Port 3000.
 
 ```sh
 WEB_PORT=<WEB_PORT> yarn dev
+```
+
+### docker for development
+
+1. new `.dev-docker.env` file
+2. start docker container
+```sh
+docker compose --env-file=./.dev-docker.env up
+```
+3. close docker container
+```sh
+docker compose --env-file=./.dev-docker.env down
 ```
 
 ### production
