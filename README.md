@@ -49,7 +49,10 @@ Component
 ```
 ## Env Description
 
-NODE Version: 12.x, 14.x, 16.x
+1. NODE Version: 12.x, 14.x, 16.x
+2. Confirmed Work System Version: 
+  - Ubuntu 22.04.1 LTS
+  - macOS Monterey
 
 ### Install
 
