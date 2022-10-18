@@ -15,10 +15,11 @@ export const title = css({
 })
 
 export const showMore = css({
-  marginLeft: '8px',
-  fontSize: '0.875rem',
-  color: colors.textBodyLightColor,
-  fontWeight: 'bold',
+  'marginLeft': '8px',
+  'fontSize': '0.875rem',
+  'textDecoration': 'none',
+  'color': colors.textBodyLightColor,
+  'fontWeight': 'bold',
 })
 
 export const detailMessage = css({
