@@ -15,8 +15,6 @@ export const input = css({
   flexGrow: 1,
   height: '2.375rem',
   border: 0,
-  paddingLeft: '8px',
-  paddingRight: '8px',
   outline: 'none',
   borderRadius: 0,
   borderBottom: `solid 1px ${colors.searchInputBorderColor}`,
