@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios'
+import axios, { AxiosInstance, CancelToken } from 'axios'
 import qs from 'qs'
 import type { ListReposOptions } from './types'
 import { Repositories } from './schemas/repositories'
@@ -23,12 +23,13 @@ export class Api {
     })
   }
 
-  listRepos = (params: ListReposOptions) => {
+  listRepos = (params: ListReposOptions, cancelToken?: CancelToken) => {
     return this.apiInstance.get<Repositories>('/search/repositories', {
       headers: {
         'Content-Type': 'application/vnd.github+json',
       },
       params,
+      cancelToken,
     })
   }
 }

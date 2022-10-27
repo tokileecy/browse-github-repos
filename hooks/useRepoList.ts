@@ -1,6 +1,6 @@
 import { RepoSearchResultItem, Repositories } from '@/api/schemas/repositories'
-import axios, { AxiosResponse } from 'axios'
-import { useCallback, useEffect, useState } from 'react'
+import axios, { AxiosResponse, CancelToken, CancelTokenSource } from 'axios'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import useDebounceSearch from './useDebouncedSearch'
 
 export interface RepoStatus {
@@ -10,11 +10,14 @@ export interface RepoStatus {
   idToRepo: Record<number, RepoSearchResultItem>
 }
 
-export type SearchAction = (options: {
-  q: string
-  page: number
-  per_page: number
-}) => Promise<AxiosResponse<Repositories, any>>
+export type SearchAction = (
+  options: {
+    q: string
+    page: number
+    per_page: number
+  },
+  cancelToken?: CancelToken
+) => Promise<AxiosResponse<Repositories, any>>
 
 export type StartupCallback = (status: RepoStatus) => void
 
@@ -37,6 +40,7 @@ export default function useRepoList(
   const [error, setError] = useState<string | null>(null)
   const [isKeying, setIsKeying] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
+  const cancelTokenRef = useRef<CancelTokenSource>()
 
   const handleError = useCallback(
     (error: unknown) => {
@@ -56,11 +60,21 @@ export default function useRepoList(
       if (dbounceText !== '') {
         setIsFetching(true)
 
-        const res = await searchAction({
-          q: dbounceText,
-          per_page: 100,
-          page: 1,
-        })
+        const cancelTokenSource = axios.CancelToken.source()
+
+        cancelTokenRef.current?.cancel()
+        cancelTokenRef.current = cancelTokenSource
+
+        const res = await searchAction(
+          {
+            q: dbounceText,
+            per_page: 100,
+            page: 1,
+          },
+          cancelTokenSource.token
+        )
+
+        cancelTokenRef.current = undefined
 
         const items = res.data.items
 
@@ -83,8 +97,12 @@ export default function useRepoList(
         setRepoStatus(generateInitRepoStatus())
       }
     } catch (error) {
-      handleError(error)
-      setRepoStatus(generateInitRepoStatus())
+      if (axios.isCancel(error)) {
+        console.warn('Request canceled')
+      } else {
+        handleError(error)
+        setRepoStatus(generateInitRepoStatus())
+      }
     } finally {
       setIsKeying(false)
       setIsFetching(false)
